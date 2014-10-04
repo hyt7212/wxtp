@@ -11,40 +11,45 @@ class LoginController extends Controller {
 	public function index(){
 		$this->display();
 	}
-	
+
 	/**
 	 * 登录
 	 */
 	public function login(){
-		dump($_POST);
-		if($_SERVER['REQUEST_METHOD']=='POST'){
-            $arrmsg=array('errno'=>1,'error'=>'','url_route'=>'');
-            $username=$this->input->post('username');
-            $password=$this->input->post('password');
-            $keepalive=$this->input->post('keepalive');
-            $arr=$this->sys_user_model->login_user($username,$password);
-            if($arr['state']=='0'){
-                $arrmsg['errno']='200';
-                $arrmsg['error']='用户登录成功';
-                $arrmsg['url_route']=site_url('admin/home');
-                
-                if($keepalive){
-                    $this->sys_user_model->add_keepalive_user($username,$password);
-                }else{
-                    $this->sys_user_model->del_keepalive_user();
-                }
-                
-            }else{
-                $arrmsg['error']=$arr['msg'];
-            }
-            echo json_encode($arrmsg);
-        }else{
-            $data['u']=$data['p']='';
-            $keepuser=$this->sys_user_model->get_keepalive_user();
-            if($keepuser){
-                $data=$keepuser;
-            }
-            $this->load->view('admin/login.php',$data);
-        }
+		if (!IS_POST) E('页面不存在');
+
+		$msg = array('errno'=>0, 'error'=>'', 'url'=>'');
+		$username = I('username');
+		$pwd = I('password', '', 'md5');
+
+		$user = M('sysuser')->where(array('username'=>$username))->find();
+
+		if (!$user || $user['password'] != $pwd){
+			$msg['errno'] = 1;
+			$msg['error'] = '用户名或密码错误';
+			$this->ajaxReturn($msg);
+		}
+
+		if ($user['lock']){
+			$msg['errno'] = 1;
+			$msg['error'] = '用户被锁定';
+			$this->ajaxReturn($msg);
+		}
+
+		$data = array(
+			'id' => $user['id'],
+			'logintime' => time(),
+			'loginip' => get_client_ip()
+		);
+		M('sysuser')->save($data);
+
+		session('uid', $user['id']);
+		session('username', $user['username']);
+		session('logintime', date('Y-m-d H:i:s', $user['logintime']));
+		session('loginip', $user['loginip']);
+
+		$msg['error'] = '登录成功';
+		$msg['url'] = U('Admin/Index/index');
+		$this->ajaxReturn($msg);
 	}
 }

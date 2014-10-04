@@ -204,8 +204,7 @@ width: 15px;*/
 					<li><a href="#">友情链接</a></li>
 				</ul>
 			</div>
-			<div class="row text-center"
-				style="margin-top: 20px; color: #9eaeab;">
+			<div class="row text-center" style="margin-top: 20px; color: #9eaeab;">
 				重庆热客科技有限公司版权所有©2014<span class="hide" style="margin-left: 30px;">备案号：</span>
 			</div>
 
@@ -213,37 +212,6 @@ width: 15px;*/
 	</div>
 	<!--footer-->
 </body>
-<!-- 
-<script>
-	/*背景图片自适应*/var resolutionHeight = window.screen.height;
-	$("#hd").css("padding-top", (resolutionHeight * 0.08) + "px");
-	$("div.info").css("margin-top", (resolutionHeight * 0.11) + "px");
-	if (resolutionHeight < 770) {
-		$("body").css("height", "130%");
-	} else if (resolutionHeight < 901) {
-		$("body").css("height", "115%");
-	} else if (resolutionHeight > 1200) {
-		$("body").addClass("bodybig");
-	}
-	var scrollHeight = Math.max(document.documentElement.scrollHeight,
-			document.body.scrollHeight);
-	var clientHeight = document.documentElement.clientHeight
-			|| document.body.clientHeight;
-	var maxHeight = Math.max(clientHeight, scrollHeight);
-	$("body").css("min-height", maxHeight + "px");
-	$(window).resize(
-			function() {
-				var scrollHeight1 = Math.max(
-						document.documentElement.scrollHeight,
-						document.body.scrollHeight);
-				var clientHeight1 = document.documentElement.clientHeight
-						|| document.body.clientHeight;
-				var maxHeight1 = Math.max(clientHeight1, scrollHeight1);
-				$("body").css("height", maxHeight1 + "px");
-			});/*placeholder*/
-	$('input[placeholder]').placeholder();
-</script>
- -->
 
 <script>
 	$(document).ready(function() {
@@ -280,16 +248,16 @@ width: 15px;*/
 				password : $('#password').val(),
 				keepalive : $('#keepalive').attr('value')
 			}, function(rs) {
-				//alert(rs);
+				//console.log(rs);
 
 				$('#error_tips').text(rs.error);
-				$('#error_box').slideDown(400);
+				$('#error_tips').slideDown(400);
 				setTimeout(function() {
-					$('#error_box').hide();
+					$('#error_tips').hide();
 				}, 3000);
-				if (rs.errno == 200) {
+				if (rs.errno == 0) {
 					setTimeout(function() {
-						location.href = rs.url_route;
+						location.href = rs.url;
 					}, 600);
 				}
 			}, 'json');
