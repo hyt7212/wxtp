@@ -4,6 +4,7 @@
  */
 namespace Admin\Controller;
 use Think\Controller;
+use Org\Util\Rbac;
 class LoginController extends Controller {
 	/**
 	 * 登录视图
@@ -43,11 +44,19 @@ class LoginController extends Controller {
 		);
 		M('sysuser')->save($data);
 
-		session('uid', $user['id']);
+		session(C('USER_AUTH_KEY'), $user['id']);
 		session('username', $user['username']);
 		session('logintime', date('Y-m-d H:i:s', $user['logintime']));
 		session('loginip', $user['loginip']);
 
+		/* 判断是否为超级管理员 */
+		if ($user['username'] == C('RBAC_SUPERADMIN')){
+			session('superadmin', true);	
+		}
+		
+		import('ORG.Util.RBAC'); //引入RBAC类
+		Rbac::saveAccessList();  //保存权限到SESSION
+		
 		$msg['error'] = '登录成功';
 		$msg['url'] = U('Admin/Index/index');
 		$this->ajaxReturn($msg);

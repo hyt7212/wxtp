@@ -83,7 +83,7 @@
 						<div class="box-title">
 							<div class="span10">
 								<h3>
-									<i class="icon-edit"></i>添加角色
+									<i class="icon-edit"></i>添加节点
 								</h3>
 							</div>
 							<!-- 
@@ -94,12 +94,12 @@
 						</div>
 
 						<div class="box-content">
-							<form action="<?php echo U('Admin/Rbac/addRole');?>" method="post" >
+							<form action="<?php echo U('Admin/Rbac/addNode');?>" method="post" >
 							<!-- 
-							<form action="<?php echo U('Admin/Rbac/addRole');?>" method="post" class="form-horizontal form-validate">
+							<form action="<?php echo U('Admin/Rbac/addNode');?>" method="post" class="form-horizontal form-validate">
 							 -->
 								<div class="control-group">
-									<label for="name" class="control-label">角色名称：</label>
+									<label for="name" class="control-label"><?php echo ($type); ?>名称：</label>
 									<div class="controls">
 										<input type="text" name="name" id="name" class="input-medium"
 											data-rule-required="true" /><span class="maroon">*</span>
@@ -107,9 +107,9 @@
 								</div>
 								
 								<div class="control-group">
-									<label for="remark" class="control-label">角色描述：</label>
+									<label for="title" class="control-label"><?php echo ($type); ?>描述：</label>
 									<div class="controls">
-										<input type="text" name="remark" id="remark" class="input-medium"
+										<input type="text" name="title" id="title" class="input-medium"
 											data-rule-required="true" /><span class="maroon">*</span>
 									</div>
 								</div>
@@ -121,8 +121,18 @@
 										<input type="radio" name="status" value="0">否
 									</div>
 								</div>
+								
+								<div class="control-group">
+									<label for="sort" class="control-label">排序：</label>
+									<div class="controls">
+										<input type="text" name="sort" id="sort" class="input-medium" value='1' />
+										<span class="maroon">*</span>
+									</div>
+								</div>
 
 								<div class="form-actions">
+									<input type="hidden" name="pid" value="<?php echo ($pid); ?>" >
+									<input type="hidden" name="level" value="<?php echo ($level); ?>" >
 									<button type="submit" class="btn btn-primary" id="btnsave">保存</button>
 								</div>
 							</form>

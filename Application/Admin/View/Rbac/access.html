@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<include file="./Public/Admin/header.html" />
+<link rel="stylesheet" href="__PUBLIC__css/node.css">
+<style>
+.form-horizontal .control-group {
+	margin-bottom: 10px;
+}
+
+.input-medium {
+	width: 330px;
+}
+
+#keyword {
+	width: 300px;
+}
+</style>
+<script type="text/javascript">
+	$(function(){
+		$("input[level=1]").click(function(){
+			var inputs = $(this).parents(".app").find("input");
+ 			$(this).attr("checked") ? inputs.attr("checked", "checked") : inputs.removeAttr("checked");
+		});
+		
+		$("input[level=2]").click(function(){
+			var inputs = $(this).parents("dl").find("input");
+ 			$(this).attr("checked") ? inputs.attr("checked", "checked") : inputs.removeAttr("checked");
+		});
+	});
+</script>
+</head>
+<body>
+	<div id="main">
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="box">
+						<div class="box-title">
+							<div class="span4">
+								<h3>
+									<i class="icon-list"></i>节点列表
+								</h3>
+							</div>
+						</div>
+
+						<div class="box-content">
+							<div class="row-fluid dataTables_wrapper">
+								<a href="{:U('Admin/Rbac/role')}" class="add_app">返回</a>
+								<form action="{:U('Admin/Rbac/access')}" method="post">
+									<foreach name='node' item='app'>
+										<div class='app'>
+											<p>
+												<strong>{$app.title}</strong>
+												<input type="checkbox" name="access[]" value="{$app.id}_1" level="1" <if condition='$app["access"]'>checked='checked'</if> >
+											</p>
+											
+											<foreach name="app.child" item="action">
+												<dl>
+													<dt>
+														<strong>{$action.title}</strong>
+														<input type="checkbox" name="access[]" value="{$action.id}_2" level="2" <if condition='$action["access"]'>checked='checked'</if> >
+													</dt>
+													
+													<foreach name="action.child" item="method">
+														<dd>
+															<span>{$method.title}</span>
+															<input type="checkbox" name="access[]" value="{$method.id}_3" level="3" <if condition='$method["access"]'>checked='checked'</if> >
+														</dd>
+													</foreach>
+												</dl>
+											</foreach>
+										</div>
+									</foreach>
+									<input type="hidden" name="rid" value="{$rid}">
+									<button type="submit" class="btn btn-primary" style="display: block;margin:20px auto;" id="btnsave">保存</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

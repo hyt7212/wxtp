@@ -21,6 +21,7 @@
 <script type="text/javascript" src="/wxtp/Public/Admin/js/region_select.js"></script>
 <!--[if lte IE 9]><script src="/wxtp/Public/Admin/js/watermark.js"></script><![endif]-->
 <!--[if IE 7]><link href="/wxtp/Public/Admin/css/font_awesome_ie7.css" rel="stylesheet" /><![endif]-->
+<link rel="stylesheet" href="/wxtp/Public/Admin/css/node.css">
 <style>
 .form-horizontal .control-group {
 	margin-bottom: 10px;
@@ -30,49 +31,11 @@
 	width: 330px;
 }
 
-.see {
-	width: 345px;
-	height: 650px;
-	background: url(/wxtp/Public/Admin/img/iphone5bs.png)
-		no-repeat;
-	background-size: 100% 100%;
-	position: fixed;
-	top: 30px;
-	right: 50px;
-	display: none;
-}
-
-.see .content {
+#keyword {
 	width: 300px;
-	height: 477px;
-	background-color: #fff;
-	margin-left: 24px;
-	margin-top: 88px;
 }
 </style>
-<style type="text/css">
-.checkboxselect-container {
-	border: 1px solid #33CCFF;
-	visibility: hidden;
-	background: white;
-	z-index: 1000;
-}
 
-.checkboxselect-item {
-	padding: 3px 2px;
-}
-
-.checkboxselect-active {
-	background: #33CCFF;
-	color: white;
-	padding: 3px 2px;
-}
-</style>
-<script type="text/javascript">
-	$(function(){
-		$("input").eq(0).focus();
-	});
-</script>
 </head>
 <body>
 	<div id="main">
@@ -81,51 +44,39 @@
 				<div class="span12">
 					<div class="box">
 						<div class="box-title">
-							<div class="span10">
+							<div class="span4">
 								<h3>
-									<i class="icon-edit"></i>添加角色
+									<i class="icon-list"></i>节点列表
 								</h3>
 							</div>
-							<!-- 
-							<div class="span2">
-								<a class="btn" href="Javascript:window.history.go(-1)">返回</a>
-							</div>
-							 -->
 						</div>
 
 						<div class="box-content">
-							<form action="<?php echo U('Admin/Rbac/addRole');?>" method="post" >
-							<!-- 
-							<form action="<?php echo U('Admin/Rbac/addRole');?>" method="post" class="form-horizontal form-validate">
-							 -->
-								<div class="control-group">
-									<label for="name" class="control-label">角色名称：</label>
-									<div class="controls">
-										<input type="text" name="name" id="name" class="input-medium"
-											data-rule-required="true" /><span class="maroon">*</span>
-									</div>
-								</div>
+							<div class="row-fluid dataTables_wrapper">
+								<a href="<?php echo U('Admin/Rbac/addNode');?>" class="add_app">添加应用</a>
 								
-								<div class="control-group">
-									<label for="remark" class="control-label">角色描述：</label>
-									<div class="controls">
-										<input type="text" name="remark" id="remark" class="input-medium"
-											data-rule-required="true" /><span class="maroon">*</span>
-									</div>
-								</div>
-								
-								<div class="control-group">
-									<label for="status" class="control-label">是否开启：</label>
-									<div class="controls">
-										<input type="radio" name="status" value="1" checked="checked">是&nbsp;&nbsp;
-										<input type="radio" name="status" value="0">否
-									</div>
-								</div>
-
-								<div class="form-actions">
-									<button type="submit" class="btn btn-primary" id="btnsave">保存</button>
-								</div>
-							</form>
+								<?php if(is_array($node)): foreach($node as $key=>$app): ?><div class='app'>
+										<p>
+											<strong><?php echo ($app["title"]); ?></strong>
+											[<a href="<?php echo U('Admin/Rbac/addNode', array('pid' => $app['id'], 'level' => 2));?>">添加控制器</a>]
+											[<a href="">修改</a>]
+											[<a href="">删除</a>]
+										</p>
+										
+										<?php if(is_array($app["child"])): foreach($app["child"] as $key=>$action): ?><dl>
+												<dt>
+													<strong><?php echo ($action["title"]); ?></strong>
+													[<a href="<?php echo U('Admin/Rbac/addNode', array('pid' => $action['id'], 'level' => 3));?>">添加方法</a>]
+												</dt>
+												
+												<?php if(is_array($action["child"])): foreach($action["child"] as $key=>$method): ?><dd>
+														<span><?php echo ($method["title"]); ?></span>
+														[<a href="">修改</a>]
+														[<a href="">删除</a>]
+													</dd><?php endforeach; endif; ?>
+											</dl><?php endforeach; endif; ?>
+									</div><?php endforeach; endif; ?>
+							</div>
 						</div>
 					</div>
 				</div>

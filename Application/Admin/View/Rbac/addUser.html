@@ -50,10 +50,22 @@
 	color: white;
 	padding: 3px 2px;
 }
+
+.add_role{
+	float: left;
+	margin-left: 10px;
+	cursor: pointer;
+}
 </style>
 <script type="text/javascript">
 	$(function(){
 		$("input").eq(0).focus();
+		
+		$(".add_role").click(function(){
+			var obj = $(this).parents('.control-group').clone();
+			obj.find('.add_role').remove();
+			$(".form-actions").before(obj);
+		});
 	});
 </script>
 </head>
@@ -66,7 +78,7 @@
 						<div class="box-title">
 							<div class="span10">
 								<h3>
-									<i class="icon-edit"></i>添加角色
+									<i class="icon-edit"></i>添加用户
 								</h3>
 							</div>
 							<!-- 
@@ -77,34 +89,36 @@
 						</div>
 
 						<div class="box-content">
-							<form action="{:U('Admin/Rbac/addRole')}" method="post" >
-							<!-- 
-							<form action="{:U('Admin/Rbac/addRole')}" method="post" class="form-horizontal form-validate">
-							 -->
+							<form action="{:U('Admin/Rbac/addUser')}" method="post" >
 								<div class="control-group">
-									<label for="name" class="control-label">角色名称：</label>
+									<label for="username" class="control-label">用户名：</label>
 									<div class="controls">
-										<input type="text" name="name" id="name" class="input-medium"
+										<input type="text" name="username" id="username" class="input-medium"
 											data-rule-required="true" /><span class="maroon">*</span>
 									</div>
 								</div>
 								
 								<div class="control-group">
-									<label for="remark" class="control-label">角色描述：</label>
+									<label for="password" class="control-label">密码：</label>
 									<div class="controls">
-										<input type="text" name="remark" id="remark" class="input-medium"
+										<input type="password" name="password" id="title" class="input-medium"
 											data-rule-required="true" /><span class="maroon">*</span>
 									</div>
 								</div>
 								
 								<div class="control-group">
-									<label for="status" class="control-label">是否开启：</label>
-									<div class="controls">
-										<input type="radio" name="status" value="1" checked="checked">是&nbsp;&nbsp;
-										<input type="radio" name="status" value="0">否
+									<label for="status" class="control-label">所属角色：</label>
+									<div class="controls" style="overflow: hidden;">
+										<select name="role_id[]" style="float: left;">
+											<option value="">请选择角色</option>
+											<foreach name="role" item="v">
+												<option value="{$v['id']}">{$v['name']}({$v['remark']})</option>
+											</foreach>
+										</select>
+										<span class="btn add_role">添加一个角色</span>
 									</div>
 								</div>
-
+								
 								<div class="form-actions">
 									<button type="submit" class="btn btn-primary" id="btnsave">保存</button>
 								</div>

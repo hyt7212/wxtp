@@ -30,49 +30,11 @@
 	width: 330px;
 }
 
-.see {
-	width: 345px;
-	height: 650px;
-	background: url(/wxtp/Public/Admin/img/iphone5bs.png)
-		no-repeat;
-	background-size: 100% 100%;
-	position: fixed;
-	top: 30px;
-	right: 50px;
-	display: none;
-}
-
-.see .content {
+#keyword {
 	width: 300px;
-	height: 477px;
-	background-color: #fff;
-	margin-left: 24px;
-	margin-top: 88px;
 }
 </style>
-<style type="text/css">
-.checkboxselect-container {
-	border: 1px solid #33CCFF;
-	visibility: hidden;
-	background: white;
-	z-index: 1000;
-}
 
-.checkboxselect-item {
-	padding: 3px 2px;
-}
-
-.checkboxselect-active {
-	background: #33CCFF;
-	color: white;
-	padding: 3px 2px;
-}
-</style>
-<script type="text/javascript">
-	$(function(){
-		$("input").eq(0).focus();
-	});
-</script>
 </head>
 <body>
 	<div id="main">
@@ -81,51 +43,47 @@
 				<div class="span12">
 					<div class="box">
 						<div class="box-title">
-							<div class="span10">
+							<div class="span4">
 								<h3>
-									<i class="icon-edit"></i>添加角色
+									<i class="icon-list"></i>角色列表
 								</h3>
 							</div>
-							<!-- 
-							<div class="span2">
-								<a class="btn" href="Javascript:window.history.go(-1)">返回</a>
-							</div>
-							 -->
 						</div>
 
 						<div class="box-content">
-							<form action="<?php echo U('Admin/Rbac/addRole');?>" method="post" >
-							<!-- 
-							<form action="<?php echo U('Admin/Rbac/addRole');?>" method="post" class="form-horizontal form-validate">
-							 -->
-								<div class="control-group">
-									<label for="name" class="control-label">角色名称：</label>
-									<div class="controls">
-										<input type="text" name="name" id="name" class="input-medium"
-											data-rule-required="true" /><span class="maroon">*</span>
-									</div>
-								</div>
-								
-								<div class="control-group">
-									<label for="remark" class="control-label">角色描述：</label>
-									<div class="controls">
-										<input type="text" name="remark" id="remark" class="input-medium"
-											data-rule-required="true" /><span class="maroon">*</span>
-									</div>
-								</div>
-								
-								<div class="control-group">
-									<label for="status" class="control-label">是否开启：</label>
-									<div class="controls">
-										<input type="radio" name="status" value="1" checked="checked">是&nbsp;&nbsp;
-										<input type="radio" name="status" value="0">否
-									</div>
-								</div>
-
-								<div class="form-actions">
-									<button type="submit" class="btn btn-primary" id="btnsave">保存</button>
-								</div>
-							</form>
+							<div class="row-fluid dataTables_wrapper">
+								<table id="listTable"
+									class="table table-bordered table-hover  dataTable">
+									<thead>
+										<tr>
+											<th>角色名称</th>
+											<th>角色描述</th>
+											<th>开启状态</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<?php if($role != ''): if(is_array($role)): foreach($role as $key=>$v): ?><tr>
+											<td><?php echo ($v["name"]); ?></td>
+											<td><?php echo ($v["remark"]); ?></td>
+											<td>
+												<?php if($v["status"]): ?>开启
+												<?php else: ?>
+													关闭<?php endif; ?>
+											</td>
+											<td class='hidden-480'>
+												<a href="<?php echo U('Admin/Rbac/access', array('rid' => $v['id']));?>" class="btn" rel="tooltip" title="配置权限">
+													<i class="icon-edit">&nbsp;配置权限</i>
+												</a>
+											</td>
+										</tr><?php endforeach; endif; ?>
+										<?php else: ?>
+										<tr>
+											<td align="center" colspan="11">暂无记录</td>
+										</tr><?php endif; ?>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>

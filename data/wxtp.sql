@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost_3306
+Source Server         : localhost
 Source Server Version : 50539
 Source Host           : localhost:3306
 Source Database       : wxtp
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50539
 File Encoding         : 65001
 
-Date: 2014-10-05 01:22:53
+Date: 2014-10-07 11:34:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,6 +31,16 @@ CREATE TABLE `tp_access` (
 -- ----------------------------
 -- Records of tp_access
 -- ----------------------------
+INSERT INTO `tp_access` VALUES ('1', '11', '3', null);
+INSERT INTO `tp_access` VALUES ('1', '3', '2', null);
+INSERT INTO `tp_access` VALUES ('1', '5', '3', null);
+INSERT INTO `tp_access` VALUES ('1', '6', '3', null);
+INSERT INTO `tp_access` VALUES ('1', '7', '3', null);
+INSERT INTO `tp_access` VALUES ('1', '4', '2', null);
+INSERT INTO `tp_access` VALUES ('1', '1', '1', null);
+INSERT INTO `tp_access` VALUES ('2', '10', '3', null);
+INSERT INTO `tp_access` VALUES ('2', '8', '3', null);
+INSERT INTO `tp_access` VALUES ('2', '9', '3', null);
 
 -- ----------------------------
 -- Table structure for tp_node
@@ -50,11 +60,22 @@ CREATE TABLE `tp_node` (
   KEY `pid` (`pid`),
   KEY `status` (`status`),
   KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_node
 -- ----------------------------
+INSERT INTO `tp_node` VALUES ('1', 'Admin', '后台应用', '1', null, '1', '0', '1');
+INSERT INTO `tp_node` VALUES ('2', 'Home', '前台应用', '1', null, '1', '0', '1');
+INSERT INTO `tp_node` VALUES ('3', 'Index', '后台首页', '1', null, '1', '1', '2');
+INSERT INTO `tp_node` VALUES ('4', 'Rbac', 'RBAC权限控制', '1', null, '1', '1', '2');
+INSERT INTO `tp_node` VALUES ('5', 'index', '用户列表', '1', null, '1', '4', '3');
+INSERT INTO `tp_node` VALUES ('6', 'role', '角色列表', '1', null, '1', '4', '3');
+INSERT INTO `tp_node` VALUES ('7', 'node', '节点列表', '1', null, '1', '4', '3');
+INSERT INTO `tp_node` VALUES ('8', 'addUser', '添加用户', '1', null, '1', '4', '3');
+INSERT INTO `tp_node` VALUES ('9', 'addRole', '添加角色', '1', null, '1', '4', '3');
+INSERT INTO `tp_node` VALUES ('10', 'addNode', '添加节点', '1', null, '1', '4', '3');
+INSERT INTO `tp_node` VALUES ('11', 'index', '后台首页', '1', null, '1', '3', '3');
 
 -- ----------------------------
 -- Table structure for tp_role
@@ -69,11 +90,13 @@ CREATE TABLE `tp_role` (
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`),
   KEY `status` (`status`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_role
 -- ----------------------------
+INSERT INTO `tp_role` VALUES ('1', 'Manager', null, '1', '管理员');
+INSERT INTO `tp_role` VALUES ('2', 'Editor', null, '1', '网站编辑');
 
 -- ----------------------------
 -- Table structure for tp_role_user
@@ -89,6 +112,9 @@ CREATE TABLE `tp_role_user` (
 -- ----------------------------
 -- Records of tp_role_user
 -- ----------------------------
+INSERT INTO `tp_role_user` VALUES ('1', '2');
+INSERT INTO `tp_role_user` VALUES ('1', '3');
+INSERT INTO `tp_role_user` VALUES ('2', '3');
 
 -- ----------------------------
 -- Table structure for tp_sysuser
@@ -102,9 +128,11 @@ CREATE TABLE `tp_sysuser` (
   `loginip` varchar(50) DEFAULT NULL,
   `addtime` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_sysuser
 -- ----------------------------
-INSERT INTO `tp_sysuser` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '1412441320', '127.0.0.1', null);
+INSERT INTO `tp_sysuser` VALUES ('1', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '1412651912', '127.0.0.1', null);
+INSERT INTO `tp_sysuser` VALUES ('2', 'lisi', 'dc3a8f1670d65bea69b7b65048a0ac40', '1412651399', '127.0.0.1', '1412568427');
+INSERT INTO `tp_sysuser` VALUES ('3', 'wangwu', '9f001e4166cf26bfbdd3b4f67d9ef617', '1412646251', '127.0.0.1', '1412568510');

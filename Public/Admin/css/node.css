@@ -1,0 +1,53 @@
+@CHARSET "UTF-8";
+
+.box-content .add_app{
+	display: block;
+	width: 100px;
+	height: 28px;
+	line-height: 28px;
+	text-align: center;
+	background: #670768;
+	color: #fff;
+	border-radius: 4px;
+}
+
+.box-content .app{
+	padding: 10px;
+	margin-top: 20px;
+	border: 1px solid #f6f6f6;
+	border-radius: 4px;
+}
+
+.box-content .app p{
+	height: 30px;
+	line-height: 30px;
+}
+
+.box-content .app p strong{
+	font-size:20px;
+	color: #0b99b8;
+}
+
+.box-content .app dl{
+	margin: 10px 0;
+	border: 1px solid #dcdcdc;
+	overflow: hidden;
+}
+
+.box-content .app dl dt{
+	display: block;
+	height: 36px;
+	line-height: 36px;
+	background: #e6e6fa;
+	text-indent: 10px;
+}
+
+.box-content .app dl dt strong{
+	font-size: 16px;
+	color: #61a1fa;
+}
+
+.box-content .app dl dd{
+	padding: 10px;
+	float: left;
+}

@@ -16,7 +16,7 @@
 <script type="text/javascript" src="/wxtp/Public/Admin/js/jQuery.js"></script>
 <script type="text/javascript" src="/wxtp/Public/Admin/js/application.js"></script>
 <script type="text/javascript" src="/wxtp/Public/Admin/js/bootstrap_min.js"></script>
-<title>易推-yitui</title>
+<title>后台管理</title>
 <!--[if IE 7]>
 	<link href="/wxtp/Public/Admin/css/font_awesome_ie7.css" rel="stylesheet" />
 <![endif]-->
@@ -29,7 +29,7 @@
 	<div id="navigation">
 		<div class="container-fluid">
 			<div>
-				<a href="<?php echo U('Admin/Index/index');?>" target="_self" id="brand">易推-yitui</a>
+				<a href="<?php echo U('Admin/Index/index');?>" target="_self" id="brand">后台管理</a>
 				<a href="admin/home/index?aid=<?php echo $aid?>" target="_self" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Toggle navigation">
 					<i class="icon-reorder"></i>
 				</a>
@@ -94,6 +94,7 @@
 					<li class="dropdown">
 						<a href="#" class='dropdown-toggle' data-toggle="dropdown" style="padding: 6px; padding-top: 9px;">
 							<nobr>
+								<?php echo session('username');?>
 								<!--<img class="" src="<?php echo $account_info->wechatlogo;?>" style="width: 28px; height: 28px; " alt=""/>-->
 							</nobr>
 						</a>
@@ -114,22 +115,22 @@
                 </div>
                 <ul class="subnav-menu" style="display: block">
                     <li>
-                        <a href="">用户列表</a>
+                        <a href="<?php echo U('Admin/Rbac/index');?>">用户列表</a>
                     </li>
                     <li>
-                        <a href="">角色列表</a>
+                        <a href="<?php echo U('Admin/Rbac/role');?>">角色列表</a>
                     </li>
                     <li>
-                        <a href="">节点列表</a>
+                        <a href="<?php echo U('Admin/Rbac/node');?>">节点列表</a>
                     </li>
                     <li>
-                        <a href="">添加用户</a>
+                        <a href="<?php echo U('Admin/Rbac/addUser');?>">添加用户</a>
                     </li>
                     <li>
                         <a href="<?php echo U('Admin/Rbac/addRole');?>">添加角色</a>
                     </li>
                     <li>
-                        <a href="">添加节点</a>
+                        <a href="<?php echo U('Admin/Rbac/addNode');?>">添加节点</a>
                     </li>
                 </ul>
             </div>
