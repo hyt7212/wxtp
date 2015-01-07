@@ -1,8 +1,0 @@
-[ 2014-10-03T00:05:01+08:00 ] 127.0.0.1 /wxtp/index.php/Admin/Login/login.html
-INFO: [ app_init ] --START--
-INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.001000s ]
-INFO: [ app_init ] --END-- [ RunTime:0.007001s ]
-INFO: [ app_begin ] --START--
-INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.003000s ]
-INFO: [ app_begin ] --END-- [ RunTime:0.007000s ]
-
