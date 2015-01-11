@@ -1,0 +1,51 @@
+<xml>
+    <ToUserName><![CDATA[<?php echo $to?>]]></ToUserName>
+    <FromUserName><![CDATA[<?php echo $from?>]]></FromUserName>
+    <CreateTime><?php echo time()?></CreateTime>
+    <MsgType><![CDATA[news]]></MsgType>
+    <?php $item_con=json_decode($content);?>
+    <ArticleCount><?php echo count($item_con)?></ArticleCount>
+    <Articles>
+    <?php for($i=0;$i<count($item_con);$i++){?>
+      <item>
+        <Title><![CDATA[<?php echo $item_con[$i]->detailtitle;?>]]></Title>
+        <Description><![CDATA[<?php echo $item_con[$i]->detailintro;?>]]></Description>
+        <PicUrl><![CDATA[<?php $url=$item_con[$i]->detaillogo;
+        $preg='|^http://|'; 
+        if(preg_match($preg,$url)) {
+            echo $item_con[$i]->detaillogo;
+        }else{
+            echo $this->config->item('base_domain').$item_con[$i]->detaillogo;
+        }?>]]></PicUrl>
+        <?php if($item_con[$i]->linktype=='0'){?>
+        <Url><![CDATA[<?php $url=$item_con[$i]->detaillink;
+        //判断是否为本站，本站才加上Openid
+        /*$preg='|^'.base_url().'|';
+        if(preg_match($preg,$url)) {*/
+            //检查链接中是否存在 ?
+            $check = strpos($url, '?'); 
+            //如果存在 ?
+            if($check !== false){
+                //如果 ? 后面没有参数，如 http://www.yitu.org/index.php?
+                if(substr($url, $check+1) == ''){
+                    //可以直接加上附加参数 
+                    $new_url=$url.'openid='.$to;
+                }else{//如果有参数，如：http://www.yitu.org/index.php?ID=12 
+                    $new_url=$url.'&openid='.$to;
+                }
+            }else{
+                $new_url=$url.'?openid='.$to;
+            }
+            echo $new_url;
+        /*}
+        else{
+            echo $url;
+        }*/
+        ?>]]></Url>
+        <?php }else{?>
+        <Url><![CDATA[<?php echo base_url().'m/appmsg/show?appmsgid='.$item_con[$i]->detailid?>]]></Url>
+         <?php }?>
+      </item>
+      <?php }?>
+    </Articles>
+  </xml>

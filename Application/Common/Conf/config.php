@@ -14,9 +14,11 @@ return array(
     'DB_USER' => 'root',
     'DB_PWD'  => 'root',
     'DB_PREFIX' => 'wx_',
-    'DB_DSN'  => 'mysql:host=localhost;dbname=wxtp;charset=UTF8',
+    'DB_DSN'  => 'mysql:host=127.0.0.1;dbname=wxtp;charset=UTF8',
 
     'URL_MODEL' => 2, //URL模式
 
     'URL_HTML_SUFFIX' => '', //关闭伪静态
+
+//    'SHOW_PAGE_TRACE' =>true,
 );

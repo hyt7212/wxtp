@@ -1,0 +1,13 @@
+<xml>
+   <ToUserName><![CDATA[<?php echo $to?>]]></ToUserName>
+    <FromUserName><![CDATA[<?php echo $from?>]]></FromUserName>
+    <CreateTime><?php echo time()?></CreateTime>
+    <MsgType><![CDATA[music]]></MsgType>
+    <!--<Music>
+      <Title><![CDATA[TITLE]]></Title>
+      <Description><![CDATA[DESCRIPTION]]></Description>
+      <MusicUrl><![CDATA[MUSIC_Url]]></MusicUrl>
+      <HQMusicUrl><![CDATA[HQ_MUSIC_Url]]></HQMusicUrl>
+    </Music>-->
+    <?php echo $content;?>
+</xml>

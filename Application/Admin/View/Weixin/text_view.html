@@ -1,0 +1,13 @@
+<xml>
+<ToUserName><![CDATA[{$to}]]></ToUserName>
+<FromUserName><![CDATA[<?php echo $from?>]]></FromUserName>
+<CreateTime><?php echo time()?></CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[<?php 
+$content=str_replace("&lt;","<",$content);
+$content=str_replace("&gt;",">",$content);
+$content=str_replace("\n","\r\n",$content);
+echo $content;
+?>]]></Content>
+<FuncFlag>0</FuncFlag>
+</xml>
