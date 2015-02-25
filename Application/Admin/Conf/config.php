@@ -4,7 +4,7 @@ return array(
 		'__PUBLIC__' => __ROOT__.'/Public/'.MODULE_NAME.'/',
 	),
 		
-// 	'SHOW_PAGE_TRACE' =>true,
+	'SHOW_PAGE_TRACE' =>true,
 
 	/* RBAC配置 */
 	'RBAC_SUPERADMIN' => 'admin',		//超级管理员名称

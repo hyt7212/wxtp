@@ -4,7 +4,8 @@
  */
 namespace Admin\Controller;
 use Admin\Controller\CommonController;
-class RbacController extends CommonController {
+class RbacController extends CommonController 
+{
 	/* 用户列表 */
 	public function index(){
 		$this->user = D('User')->field('password', true)->relation(true)->select();

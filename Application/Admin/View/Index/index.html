@@ -67,6 +67,7 @@
                 </li>   -->
 
                 <li class="menu"><a href="#" target="_self">系统设置</a></li>
+                <li class="menu"><a href="#" target="_self">微信交互设置</a></li>
 			</ul>
 
 			<div class="user">
@@ -95,7 +96,6 @@
 						<a href="#" class='dropdown-toggle' data-toggle="dropdown" style="padding: 6px; padding-top: 9px;">
 							<nobr>
 								{:session('username')}
-								<!--<img class="" src="<?php echo $account_info->wechatlogo;?>" style="width: 28px; height: 28px; " alt=""/>-->
 							</nobr>
 						</a>
 					</li>
@@ -131,6 +131,34 @@
                     </li>
                     <li>
                         <a href="{:U('Admin/Rbac/addNode')}">添加节点</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="subnav hide" data-id="2">
+                <div class="subnav-title">
+                    <a href="javascript:void(0);" class='toggle-subnav'><i class="icon-angle-right"></i><span>素材管理</span></a>
+                </div>
+                <ul class="subnav-menu" style="display: block">
+                    <li>
+                        <a href="{:U('Admin/WechatSetting/keywordList')}">文本素材</a>
+                    </li>
+                    <li>
+                        <a href="{:U('Admin/WechatSetting/keywordDefault')}">图文素材</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="subnav hide" data-id="3">
+                <div class="subnav-title">
+                    <a href="javascript:void(0);" class='toggle-subnav'><i class="icon-angle-right"></i><span>关键字回复</span></a>
+                </div>
+                <ul class="subnav-menu" style="display: block">
+                    <li>
+                        <a href="{:U('Admin/WechatSetting/keywordList')}">关键字列表</a>
+                    </li>
+                    <li>
+                        <a href="{:U('Admin/WechatSetting/keywordDefault')}">默认回复</a>
                     </li>
                 </ul>
             </div>

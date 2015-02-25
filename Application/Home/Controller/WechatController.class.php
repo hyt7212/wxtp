@@ -6,26 +6,23 @@
  * Time: 20:45
  * 微信接口控制器
  */
-namespace Admin\Controller;
+namespace Home\Controller;
 
 use Think\Controller;
 
-class WeixinController extends Controller
+class WechatController extends Controller
 {
+    /**
+     * 测试方法
+     */
     public function test()
     {
-        $weixinmodel = D('Weixin');
-        $row = $weixinmodel->get_weixin_reply('', '', 'a23e2f10c1d2dfcef82bf777a6ebe7a8');
-        $content = $row['content'];
-        $type = $row['contenttype'];
-        $data = array(
-            'to' => '123',
-            'from' => '456',
-            'type' => $type,
-            'content' => $content
-        );
-        var_dump($data);
-        $this->_get_reply($type, $data);
+        $post_obj = new \stdClass();
+        $post_obj->FromUserName = 'from_name';
+        $post_obj->ToUserName = 'to_name';
+        $post_obj->Content = 'abc';
+        $res = $this->_parseMessageText($post_obj);
+        //dump($res);
     }
 
     /**
@@ -54,14 +51,9 @@ class WeixinController extends Controller
      */
     private function _get_token()
     {
-        $wechatrecid = I('get.t');
-        $weixinmodel = D('Weixin');
-        $row = $weixinmodel->get_weixin_info($wechatrecid);
-        if (count($row) > 0) {
-            return $row[0]['token'];
-        } else {
-            return '';
-        }
+        $configs = M('wechatconfigs');
+        $row = $configs->field('wechat_token')->find();
+        return $row['wechat_token'];
     }
 
     /**
@@ -70,7 +62,6 @@ class WeixinController extends Controller
      */
     private function _valid()
     {
-//        $token = TOKEN;
         $token = $this->_get_token();
         if ($token == '') {
             return false;
@@ -88,7 +79,6 @@ class WeixinController extends Controller
     }
 
     /**
-     * 这里是处理消息的地方，在这里拿到用户发送的字符串
      * 分配处理方法
      */
     private function _responseMsg()
@@ -104,7 +94,7 @@ class WeixinController extends Controller
             $msgType = $post_obj->MsgType; //输入类型
             switch ($msgType) {
                 case "text":
-                    $this->_parseMessage_text($post_obj);
+                    $this->_parseMessageText($post_obj);
                     break;
                 case "image":
                     //$this->_parseMessage_image($post_obj);
@@ -137,31 +127,49 @@ class WeixinController extends Controller
      * 处理用户输入的字符串 text
      * @param $post_obj
      */
-    private function _parseMessage_text($post_obj)
+    private function _parseMessageText($post_obj)
     {
         // TODO: 在这里做一些字符串解析，比如分析某关键字，返回什么信息等等
-        $wechatrecid = I('get.t');
         $from_username = $post_obj->FromUserName;
         $to_username = $post_obj->ToUserName;
-        $type = 'textkey';
         $keyword = trim($post_obj->Content); //用户输入的内容
+        $type = 'text';
         if (!empty($keyword)) {
-            //查询数据
-            $row = $this->weixin_model->get_weixin_reply($type, $keyword, $wechatrecid);
-            if (count($row) > 0) {
+            //查询是否为关键字
+            $keywords = M('wechatkeywords');
+            $row = $keywords->where(array('type' => $type, 'keyword' => $keyword))->find();
+            if (!empty($row)) {
                 $content = $row['content'];
-                $type = $row['contenttype'];
                 $data = array(
                     'to' => $from_username,
                     'from' => $to_username,
                     'type' => $type,
                     'content' => $content
                 );
-                $this->_get_reply($type, $data);
             } else {
-                $this->_subscribeFun($post_obj, 'default');//返回默认回复
+                //返回默认回复
+                //查询默认回复
+                $keywords = M('wechatkeywords');
+                $default = $keywords->where(array('type' => 'default'))->find();
+                if(!empty($default)){
+                    $content = $default['content'];
+                    $data = array(
+                        'to' => $from_username,
+                        'from' => $to_username,
+                        'type' => $type,
+                        'content' => $content
+                    );
+                }else{
+                    $data = array(
+                        'to' => $from_username,
+                        'from' => $to_username,
+                        'type' => $type,
+                        'content' => '谢谢关注！'
+                    );
+                }
             }
         }
+        $this->_get_reply($type, $data);
     }
 
     /**
