@@ -16,6 +16,12 @@ return array(
     'DB_PREFIX' => 'wx_',
     'DB_DSN'  => 'mysql:host=127.0.0.1;dbname=wxtp;charset=UTF8',
 
+    /*'DB_TYPE' => 'PDO',
+    'DB_USER' => 'qdm114540138',
+    'DB_PWD'  => '956727hy',
+    'DB_PREFIX' => 'wx_',
+    'DB_DSN'  => 'mysql:host=qdm114540138.my3w.com;dbname=qdm114540138_db;charset=UTF8',*/
+
     'URL_MODEL' => 2, //URL模式
 
     'URL_HTML_SUFFIX' => '', //关闭伪静态
